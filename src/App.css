@@ -7,9 +7,62 @@
   pointer-events: none;
 }
 
+.counter-container{
+  background: linear-gradient(rgba(0, 0, 0, 0.498), rgba(255, 255, 255, 0.498));
+  padding: 20px;
+  -webkit-box-shadow: -1px 2px 32px 5px rgba(0,0,0,0.64);
+  box-shadow: -1px 2px 32px 5px rgba(0,0,0,0.64);
+  border-radius: 5px;
+}
+.counter-container h1{
+  color: #62dafa;
+}
+
+.controls-container{
+  display: flex;
+  justify-content: center;
+  gap: 15px
+}
+.counter-container button {
+	box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #62daff 5%, #408c99 100%);
+	background-color:#62daff;
+	border-radius:8px;
+  border: 0;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:30px;
+	font-weight:bold;
+	padding:13px 32px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+.counter-container button:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #62daff 100%);
+	background-color:#408c99;
+}
+.counter-container button:active {
+	position:relative;
+	top:1px;
+}
+
+.reverseClick {
+  cursor: pointer;
+}
+
+.reverseClick:hover {
+  scale: 1.05;
+  animation: 20s linear ;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+  }
+  .reverse {
+    animation: App-logo-spin-reverse infinite 20s linear;
   }
 }
 
@@ -34,5 +87,14 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-spin-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
   }
 }
