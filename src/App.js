@@ -1,12 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { Component } from 'react';
+
+const changeColor = () => {
+  console.log('mudou de cor');
+  document.querySelector('.App-header').style.backgroundColor = 'white';
+};
 
 function App() {
   const [counter, setCounter] = useState(0);
   const [reverse, setReverse] = useState(false);
   const reverseClass = reverse ? 'reverse' : '';
+
+  // //componentDidUpdate - executa toda vez que o componente atualiza
+  // useEffect(() => {
+  //   console.log('executa toda vez que o componente é atualizado!');
+  // });
+
+  //componentDidMount - executa 1x
+  useEffect(() => {
+    console.log('executa só uma vez, quando a página é montada!');
+    document.querySelector('.reverseClick')?.addEventListener('click', changeColor);
+
+    //componentWillUnmount - limpeza dos eventListeners
+    return () => {
+      document.querySelector('.reverseClick')?.removeEventListener('click', changeColor);
+    };
+  }, []);
+
+  // //com dependência - executa toda vez que a dependência mudar
+  // useEffect(() => {
+  //   console.log('executa quando o reverse é alterado');
+  // }, [reverse]);
 
   const handleClick = () => {
     setReverse(!reverse);
