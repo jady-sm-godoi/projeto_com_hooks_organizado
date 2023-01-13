@@ -47,6 +47,10 @@
 	position:relative;
 	top:1px;
 }
+.counter-container button:disabled {
+	background: rgba(184, 183, 183, 0.451);
+  cursor: auto;
+}
 
 .reverseClick {
   cursor: pointer;

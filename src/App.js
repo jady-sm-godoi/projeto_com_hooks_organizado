@@ -1,11 +1,26 @@
+import P from 'prop-types';
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 // import { Component } from 'react';
 
-const changeColor = () => {
-  console.log('mudou de cor');
-  document.querySelector('.App-header').style.backgroundColor = 'white';
+// const changeColor = () => {
+//   console.log('mudou de cor');
+//   document.querySelector('.App-header').style.backgroundColor = 'white';
+// };
+
+const Button = React.memo(function buttonElement({ clickButton, operator, disabled }) {
+  return (
+    <button onClick={() => clickButton(10)} disabled={disabled}>
+      {operator}
+    </button>
+  );
+});
+
+Button.propTypes = {
+  clickButton: P.func,
+  operator: P.string,
+  disabled: P.bool,
 };
 
 function App() {
@@ -18,16 +33,16 @@ function App() {
   //   console.log('executa toda vez que o componente é atualizado!');
   // });
 
-  //componentDidMount - executa 1x
-  useEffect(() => {
-    console.log('executa só uma vez, quando a página é montada!');
-    document.querySelector('.reverseClick')?.addEventListener('click', changeColor);
+  // //componentDidMount - executa 1x
+  // useEffect(() => {
+  //   console.log('executa só uma vez, quando a página é montada!');
+  //   document.querySelector('.reverseClick')?.addEventListener('click', changeColor);
 
-    //componentWillUnmount - limpeza dos eventListeners
-    return () => {
-      document.querySelector('.reverseClick')?.removeEventListener('click', changeColor);
-    };
-  }, []);
+  //   //componentWillUnmount - limpeza dos eventListeners
+  //   return () => {
+  //     document.querySelector('.reverseClick')?.removeEventListener('click', changeColor);
+  //   };
+  // }, []);
 
   // //com dependência - executa toda vez que a dependência mudar
   // useEffect(() => {
@@ -38,15 +53,13 @@ function App() {
     setReverse(!reverse);
   };
 
-  const handleIncrement = () => {
-    setCounter(counter + 1);
-  };
+  const handleIncrement = useCallback((num) => {
+    setCounter((c) => c + num);
+  }, []);
 
-  const handleDecrement = () => {
-    if (counter > 0) {
-      setCounter(counter - 1);
-    }
-  };
+  const handleDecrement = useCallback((num) => {
+    setCounter((c) => c - num);
+  }, []);
 
   return (
     <div className="App">
@@ -57,8 +70,8 @@ function App() {
         <div className="counter-container">
           <h1>contador: {counter}</h1>
           <div className="controls-container">
-            <button onClick={handleIncrement}>+</button>
-            <button onClick={handleDecrement}>-</button>
+            <Button clickButton={handleIncrement} operator={'+'} disabled={false} />
+            <Button clickButton={handleDecrement} operator={'-'} disabled={counter <= 0 ? true : false} />
           </div>
         </div>
       </header>
