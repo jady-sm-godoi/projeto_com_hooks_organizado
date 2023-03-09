@@ -49,3 +49,5 @@ function App() {
 }
 
 export default App;
+
+//FONT: https://overreacted.io/making-setinterval-declarative-with-react-hooks/
